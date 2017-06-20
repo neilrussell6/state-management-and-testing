@@ -1,35 +1,6 @@
 Component : dispatch form data to state
 ===
 
-
-    Observable
-      .fromEvent(this.elPhoneNumberFormSubmitButton.nativeElement, 'click')
-      .debounceTime(1000)
-      .withLatestFrom(this.phoneNumberForm.statusChanges, (event, valid) => valid)
-      .filter((status) => status === 'VALID')
-      .withLatestFrom(this.phoneNumberForm.valueChanges, (valid, value) => value)
-      .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
-      .withLatestFrom(this.memberProfilePhoneNumber$, (formData, stateData) => ({ formData, stateData }))
-      .map(({ formData, stateData }) => {
-
-        const data = {
-          number: formData.number,
-          phone_prefix: formData.country.callingCodes[0],
-          // preferred: formData.preferred,
-          type: formData.type
-        };
-
-        if (stateData === null) {
-          this.router.navigate(['/my-profile/details']);
-          return memberProfilePhoneNumberActions.create({ data });
-        }
-
-        return memberProfilePhoneNumberActions.update({ id: stateData.id, data });
-      })
-      .subscribe(this.store.dispatch);
-
-
-
 ```javascript
 Observable
   .fromEvent(this.elPhoneNumberFormSubmitButton.nativeElement, 'click')

@@ -7,7 +7,7 @@ Component : view events
 <button #elSomeButton>click me</button>
 ```
 
-```js
+```javascript
 @ViewChild('elSomeButton') elSomeButton: ElementRef;
 
 ngOnInit () {
@@ -22,7 +22,7 @@ ngOnInit () {
 
 **some.component.ts**
 
-```js
+```javascript
 @Output('someEvent') someEvent: EventEmitter;
 ```
 
@@ -32,7 +32,7 @@ ngOnInit () {
 <some-component #elSomeComonent></some-component>
 ```
 
-```js
+```javascript
 @ViewChild('elSomeComponent') elSomeComponent: SomeComponent;
 
 ngOnInit () {
