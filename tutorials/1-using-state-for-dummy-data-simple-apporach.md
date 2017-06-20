@@ -132,6 +132,7 @@ const rootReducer = composeReducers(
     ...
   })
 );
+```
 
 ### 6) dispatch an action to add the dummy data to state and select it
 
