@@ -32,6 +32,9 @@ Details
 
 > For this tutorial we will be creating an endpoint for memberProfile
 
+> **IMPORTANT**: this is not the actual process for implementing memberProfile, memberProfile is just being used as example, 
+> so for this tutorial replace memberProfile with whatever you are actually implmenting, eg. memberProfilePassports
+
 ### 1) create an interface for your endpoint
 
 create ``src/app/interfaces/member-profile.interface.ts``
