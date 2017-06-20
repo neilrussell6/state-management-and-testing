@@ -157,16 +157,15 @@ import * as memberProfileActions from 'app/state/member-profile/member-profile.a
 
 ...
 export class YourComonent {
-  ...
   
   // selectors
   @select('memberProfile') readonly memberProfile$: Observable<IMemberProfile>; // <-- add this
 
   constructor(
     ...
-    private store: NgRedux<IAppState> <-- add this
+    private store: NgRedux<IAppState> // <-- add this
   ) {
-    this.store.dispatch(memberProfileActions.view()); <-- add this
+    this.store.dispatch(memberProfileActions.view()); // <-- add this
   }
 ```
 
