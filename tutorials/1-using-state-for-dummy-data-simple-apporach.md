@@ -170,4 +170,4 @@ export class YourComonent {
   }
 ```
 
-> For more info on selecting data from state and using it see [/recipes/3-state-interaction](/recipes/3-state-interaction)
+> For more info on selecting data from state and using it see [/recipes/3-state-interaction](https://github.com/neilrussell6/state-management-and-testing/blob/master/recipes/3-state-interaction)
