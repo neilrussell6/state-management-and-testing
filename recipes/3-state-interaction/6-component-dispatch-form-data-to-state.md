@@ -1,9 +1,40 @@
 Component : dispatch form data to state
 ===
 
+
+    Observable
+      .fromEvent(this.elPhoneNumberFormSubmitButton.nativeElement, 'click')
+      .debounceTime(1000)
+      .withLatestFrom(this.phoneNumberForm.statusChanges, (event, valid) => valid)
+      .filter((status) => status === 'VALID')
+      .withLatestFrom(this.phoneNumberForm.valueChanges, (valid, value) => value)
+      .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
+      .withLatestFrom(this.memberProfilePhoneNumber$, (formData, stateData) => ({ formData, stateData }))
+      .map(({ formData, stateData }) => {
+
+        const data = {
+          number: formData.number,
+          phone_prefix: formData.country.callingCodes[0],
+          // preferred: formData.preferred,
+          type: formData.type
+        };
+
+        if (stateData === null) {
+          this.router.navigate(['/my-profile/details']);
+          return memberProfilePhoneNumberActions.create({ data });
+        }
+
+        return memberProfilePhoneNumberActions.update({ id: stateData.id, data });
+      })
+      .subscribe(this.store.dispatch);
+
+
+
 ```javascript
-Observable.from(this.phoneNumberForm.statusChanges)
+Observable
+  .fromEvent(this.elPhoneNumberFormSubmitButton.nativeElement, 'click')
   .debounceTime(1000)
+  .withLatestFrom(this.phoneNumberForm.statusChanges, (event, valid) => valid)
   .filter((status) => status === 'VALID')
   .withLatestFrom(this.phoneNumberForm.valueChanges, (valid, value) => value)
   .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
@@ -23,13 +54,16 @@ Observable.from(this.phoneNumberForm.statusChanges)
 next is the same as above but with comments:
 
 ```javascript
-// start with the form's status change observable
-Observable.from(this.phoneNumberForm.statusChanges)
-  // debounce form submition
+// start with the submit button click
+Observable
+  .fromEvent(this.elPhoneNumberFormSubmitButton.nativeElement, 'click')
+  // debounce form clicks
   .debounceTime(1000)
+  // next get the latest emission from the form's status change observable
+  .withLatestFrom(this.phoneNumberForm.statusChanges, (event, valid) => valid)
   // don't continue if form is invalid
   .filter((status) => status === 'VALID')
-  // next get the latest emmition from the form's value change observable
+  // next get the latest emission from the form's value change observable
   .withLatestFrom(this.phoneNumberForm.valueChanges, (valid, value) => value)
   // make sure the form's value has actually changed
   .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
@@ -50,12 +84,35 @@ Observable.from(this.phoneNumberForm.statusChanges)
   .subscribe(this.store.dispatch);
 ```
 
+If we need to call either update or create depending on some data then we can update the last map function as follows:
+
+```javascript
+.map(({ formData, stateData }) => {
+
+  const data = {
+    number: formData.number,
+    phone_prefix: formData.country.callingCodes[0],
+    preferred: formData.preferred,
+    type: formData.type
+  };
+
+  if (stateData === null) {
+    this.router.navigate(['/my-profile/details']);
+    return memberProfilePhoneNumberActions.create({ data });
+  }
+
+  return memberProfilePhoneNumberActions.update({ id: stateData.id, data });
+})
+```
+
 And lastly, if this were a create form, instead of an update form, then we could skip grabbing the state data eg.
  
 ```javascript
 // dispatch form changes to state
-Observable.from(this.phoneNumberForm.statusChanges)
+Observable
+  .fromEvent(this.elPhoneNumberFormSubmitButton.nativeElement, 'click')
   .debounceTime(1000)
+  .withLatestFrom(this.phoneNumberForm.statusChanges, (event, valid) => valid)
   .filter((status) => status === 'VALID')
   .withLatestFrom(this.phoneNumberForm.valueChanges, (valid, value) => value)
   .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
