@@ -54,15 +54,27 @@ Copy everything under Details section below to a new text file and run the follo
 
 ``YOUR_ENDPOINT_NAME`` will refer to whatever your endpoint's name is (eg. memberProfilePhoneNumbers) 
 
-* replace ``FILE_NAME`` with your ``YOUR_ENDPOINT_NAME`` in singular, formatted like this: ``member-profile-phone-number``
-* replace ``INTERFACE_NAME`` with your ``YOUR_ENDPOINT_NAME`` in singular, formatted like this: ``MemberProfilePhoneNumber``
-* replace ``CONSTANT_NAME`` with your ``YOUR_ENDPOINT_NAME`` in singular, formatted like this: ``MEMBER_PROFILE_PHONE_NUMBER``
-* replace ``ENDPOINT_NAME`` with your ``YOUR_ENDPOINT_NAME`` in whatever it actually is, 
-  so if your data needs to be an array then it's plural, so format like this: ``memberProfilePhoneNumbers``
-  if your data needs to be an object then it's singular, so format like this: ``memberProfile``
-* replace ``TYPE_SIGNATURE`` as follows:
-  * if you endpoint represents an object then replace ``TYPE_SIGNATURE`` with your ``YOUR_ENDPOINT_NAME`` interface, formatted like this: ``IMemberProfilePhoneNumber``
-  * if you endpoint represents an array then replace ``TYPE_SIGNATURE`` with your ``YOUR_ENDPOINT_NAME`` interface wrapped in an array, formatted like this: ``Array<IMemberProfilePhoneNumber>``
+1. replace ``FILE_NAME`` with your ``YOUR_ENDPOINT_NAME`` in singular, formatted like this: ``member-profile-phone-number``
+
+2. replace ``INTERFACE_NAME`` with your ``YOUR_ENDPOINT_NAME`` in singular, formatted like this: ``MemberProfilePhoneNumber``
+
+3. replace ``CONST_ACTION_NAME`` with your ``YOUR_ENDPOINT_NAME`` in singular, formatted like this: ``MEMBER_PROFILE_PHONE_NUMBER``
+
+For the following replacements (4, 5 & 6), you need to replace with either singular or plural depending on what your endpoint is: 
+  so if your data needs to be an array then it's plural,
+  but if your data needs to be an object then it's singular
+
+4. replace ``CONST_DEFAULT_NAME`` with your ``YOUR_ENDPOINT_NAME`` as follows: 
+  if plural, then format like this: ``MEMBER_PROFILE_PHONE_NUMBERS``
+  if singular, then format like this: ``MEMBER_PROFILE_PHONE_NUMBER``
+
+5. replace ``ENDPOINT_NAME`` with your ``YOUR_ENDPOINT_NAME`` as follows: 
+  if plural, then format like this: ``memberProfilePhoneNumbers``
+  if singular, then format like this: ``memberProfilePhoneNumber``
+
+6. replace ``TYPE_SIGNATURE`` as follows:
+  if plural, then replace ``TYPE_SIGNATURE`` with your ``YOUR_ENDPOINT_NAME`` interface wrapped in an array, formatted like this: ``Array<IMemberProfilePhoneNumber>``
+  if singular, then replace ``TYPE_SIGNATURE`` with your ``YOUR_ENDPOINT_NAME`` interface, formatted like this: ``IMemberProfilePhoneNumber``
 
 Details
 ---
@@ -90,11 +102,11 @@ open ``src/app/state/store.defaults.ts``
 and update:
 
 ```javascript
-export const DEFAULT_CONSTANT_NAME: TYPE_SIGNATURE = null; // <-- add this
+export const DEFAULT_CONST_DEFAULT_NAME: TYPE_SIGNATURE = null; // <-- add this
 
 export const DEFAULT_APP_STATE: IAppState = {
   ...
-  ENDPOINT_NAME: DEFAULT_CONSTANT_NAME, // <-- add this
+  ENDPOINT_NAME: DEFAULT_CONST_DEFAULT_NAME, // <-- add this
   ...
 };
 ```
@@ -113,11 +125,11 @@ import { IAction } from '../store.interfaces';
 // --------------------------------------
 
 // view
-export const CONSTANT_NAME_VIEW = 'CONSTANT_NAME_VIEW';
-export const CONSTANT_NAME_VIEW_SUCCESS = 'CONSTANT_NAME_VIEW_SUCCESS';
+export const CONST_ACTION_NAME_VIEW = 'CONST_ACTION_NAME_VIEW';
+export const CONST_ACTION_NAME_VIEW_SUCCESS = 'CONST_ACTION_NAME_VIEW_SUCCESS';
 
 // these constant names don't have to match their values
-// and can be shortened, as they'll be referred to like this phoneNumberActions.CONSTANT_NAME_VIEW
+// and can be shortened, as they'll be referred to like this phoneNumberActions.CONST_ACTION_NAME_VIEW
 // from within our epics, reducers & tests, components won't use these constants (they will use the functions below)
 // but make sure the values are globally unique within the app
 // add whatever other actions you need here
@@ -126,8 +138,8 @@ export const CONSTANT_NAME_VIEW_SUCCESS = 'CONSTANT_NAME_VIEW_SUCCESS';
 // actions creators
 // --------------------------------------
 
-export const view        = (): IAction => ({ type: CONSTANT_NAME_VIEW });
-export const viewSuccess = (): IAction => ({ type: CONSTANT_NAME_VIEW_SUCCESS });
+export const view        = (): IAction => ({ type: CONST_ACTION_NAME_VIEW });
+export const viewSuccess = (): IAction => ({ type: CONST_ACTION_NAME_VIEW_SUCCESS });
 
 // these are the functions that our components will call to dispatch actions
 // they will be called lke this:
@@ -143,14 +155,18 @@ create ``src/app/state/FILE_NAME/FILE_NAME.reducers.ts``
 and populate:
 
 ```javascript
+// app.interfaces
+import { IMemberProfilePhoneNumber } from 'app/interfaces/member-profile-phone-number.interface';
+
 // app.state
-import { DEFAULT_CONSTANT_NAME } from '../store.defaults';
+import { DEFAULT_MEMBER_PROFILE_PHONE_NUMBERS } from '../store.defaults';
+import { IAction } from '../store.interfaces';
 import * as ENDPOINT_NAMEActions from './FILE_NAME.actions';
 
-export const ENDPOINT_NAME = (state: TYPE_SIGNATURE = DEFAULT_CONSTANT_NAME, action: IAction) => {
+export const ENDPOINT_NAME = (state: TYPE_SIGNATURE = DEFAULT_CONST_DEFAULT_NAME, action: IAction) => {
   switch (action.type) {
 
-    case ENDPOINT_NAMEActions.CONSTANT_NAME_VIEW_SUCCESS:
+    case ENDPOINT_NAMEActions.CONST_ACTION_NAME_VIEW_SUCCESS:
       return {
         // ... dummy data (replace this with whatever you need, this can also be an array or integer or anything)
       };
@@ -223,6 +239,6 @@ export class YourComonent {
 
 If you reload your component in the browser you should see two things:
   1) The value of your dummy data logged in the console
-  2) A log of the ``CONSTANT_NAME_VIEW_SUCCESS`` action in ReduxDev tools
+  2) A log of the ``CONST_ACTION_NAME_VIEW_SUCCESS`` action in ReduxDev tools
 
 > For more info on selecting data from state and using it see [/recipes/3-state-interaction](https://github.com/neilrussell6/state-management-and-testing/blob/master/recipes/3-state-interaction)
