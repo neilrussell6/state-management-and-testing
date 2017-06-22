@@ -147,7 +147,7 @@ and populate:
 import { DEFAULT_CONSTANT_NAME } from '../store.defaults';
 import * as ENDPOINT_NAMEActions from './FILE_NAME.actions';
 
-export const ENDPOINT_NAME = (state, action) => {
+export const ENDPOINT_NAME = (state: TYPE_SIGNATURE = DEFAULT_CONSTANT_NAME, action: IAction) => {
   switch (action.type) {
 
     case ENDPOINT_NAMEActions.CONSTANT_NAME_VIEW_SUCCESS:
