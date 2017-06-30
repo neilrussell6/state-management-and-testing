@@ -26,3 +26,6 @@ debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# custom
+__ignore

@@ -7,7 +7,7 @@ part 1 (basic coding guidelines and selecting from state)
 ### components (general guidelines)
 
  - favour RxJs where-ever possible, so:
-   - avoid all properties that are either selctors, observables or element refs (they can usually be replaced with some RxJs approach)
+   - avoid all properties that are not either selectors, observables or element refs (they can usually be replaced with some RxJs approach)
    - avoid methods (there is usually a better RxJs approach)
  - avoid Subjects, instead:
    - use ViewChild element refs and Observable.fromEvent for event handling
