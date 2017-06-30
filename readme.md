@@ -3,8 +3,8 @@ State Management & Testing
 
 ### guidelines
 
-[overview & guidelines](guidelines/guidelines.md)
-[observables vs non-observables and event handlers](guidelines/observables-vs-non-observables-and-event-handlers.md)
+ * [overview & guidelines](guidelines/guidelines.md)
+ * [observables vs non-observables and event handlers](guidelines/observables-vs-non-observables-and-event-handlers.md)
 
 ### tutorials
 
