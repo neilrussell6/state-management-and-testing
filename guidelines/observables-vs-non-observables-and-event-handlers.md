@@ -74,3 +74,8 @@ ngOnInit() {
 ```
 
 This way other observables can contribute to this.something1 and we can still use RxJs for our interaction with the event. 
+
+### conclusion
+
+This approach also allows us to make use of the advice in this series:
+[Save time avoiding common mistakes using RxJS](https://egghead.io/courses/save-time-avoiding-common-mistakes-using-rxjs)
