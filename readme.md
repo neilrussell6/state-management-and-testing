@@ -8,8 +8,7 @@ State Management & Testing
 
 ### tutorials
 
-1. [using-state-for-dummy-data-simple-apporach](tutorials/1-using-state-for-dummy-data-simple-apporach.md)
-2. [using-state-for-dummy-data-better-apporach](tutorials/2-using-state-for-dummy-data-better-apporach.md)
+1. [steps for creating a new endpoint in the store](/tutorials/steps-for-creating-a-new-endpoint-in-the-store.md)
 
 ### code samples and recipes
 
@@ -27,9 +26,8 @@ State Management & Testing
   * [Dispatch data to state](recipes/3-state-interaction/5-component-dispatch-data-to-state.md)
   * [Dispatch form data to state](recipes/3-state-interaction/6-component-dispatch-form-data-to-state.md)
 
-### snippets
+### live templates
 
 > if your IDE allows for live templates or snippets then these are handy
 
-  * [Testing](snippets/testing.md)
-  * [Testing Reducers](snippets/testing-reducers.md)
+  * [Testing](live-templates/tg-ts-testing.md)
